@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/final-project-website-BMcGuffin/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/final-project-website-BMcGuffin/" rel="alternate" type="text/html" /><updated>2017-12-08T22:20:41-08:00</updated><id>http://localhost:4000/final-project-website-BMcGuffin/</id><title type="html">CPE 471 Fall 2017</title><subtitle>This is the website for Bryan McGuffin`s CPE 471 Final Project submission. I developed a textured heightmap of San Luis Obispo, CA using openGL.</subtitle><entry><title type="html">Project Details</title><link href="http://localhost:4000/final-project-website-BMcGuffin/2017/12/08/project-specs.html" rel="alternate" type="text/html" title="Project Details" /><published>2017-12-08T13:43:00-08:00</published><updated>2017-12-08T13:43:00-08:00</updated><id>http://localhost:4000/final-project-website-BMcGuffin/2017/12/08/project-specs</id><content type="html" xml:base="http://localhost:4000/final-project-website-BMcGuffin/2017/12/08/project-specs.html">&lt;p&gt;For my Graphics 471 final project, I used texture mapping to generate a 3d model of the city of San Luis Obispo, from a heightmap image and a satellite photo of SLO.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/702.png?raw=true&quot; alt=&quot;image801&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The source code for the project can be downloaded &lt;a href=&quot;https://github.com/calpoly-csc471-fall-17/final-project-BMcGuffin&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Controls for the model are as follows:&lt;/p&gt;
+
+&lt;p&gt;W ==&amp;gt; Move forward&lt;br /&gt;
+A ==&amp;gt; Move left&lt;br /&gt;
+S ==&amp;gt; Move down&lt;br /&gt;
+D ==&amp;gt; Move right&lt;br /&gt;
+Space ==&amp;gt; Move up&lt;br /&gt;
+Shift ==&amp;gt; Move down&lt;/p&gt;
+
+&lt;p&gt;P ==&amp;gt; Move quickly&lt;br /&gt;
+G ==&amp;gt; Toggle gravity&lt;/p&gt;
+
+&lt;p&gt;I began with a flat mesh made of &lt;code class=&quot;highlighter-rouge&quot;&gt;(sideLength^2) * 2&lt;/code&gt; triangles, where &lt;code class=&quot;highlighter-rouge&quot;&gt;sideLength&lt;/code&gt; can be configured in the &lt;code class=&quot;highlighter-rouge&quot;&gt;main.cpp&lt;/code&gt; source file. A larger value for &lt;code class=&quot;highlighter-rouge&quot;&gt;sideLength&lt;/code&gt; increases the granularity of the map. The mesh is drawn using &lt;code class=&quot;highlighter-rouge&quot;&gt;GL_TRIANGLE_STRIP&lt;/code&gt;.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/101.png?raw=true&quot; alt=&quot;image101&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I downloaded the heightmap file from the website &lt;a href=&quot;https://terrain.party/&quot;&gt;here&lt;/a&gt;. The heightmap is a square greyscale image; lighter pixel values represent higher relative elevations. The image is centered on Cerro San Luis Obispo, AKA “Mount Madonna”.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/201.jpg?raw=true&quot; alt=&quot;image201&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I began by texturing the heightmap directly onto the mesh, as an image.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/202.png?raw=true&quot; alt=&quot;image202&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I generated terrain elevations using the vertex shader, by mutating the y-coordinates of different vertices proportional to the pixel value at the nearest pixel on the heightmap.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/301.png?raw=true&quot; alt=&quot;image301&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;At a significantly higher granularity, the details of the map are revealed.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/401.png?raw=true&quot; alt=&quot;image401&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The first pass of the terrain map came from a single screenshot of the area on Google Maps. I trimmed the image so that it covered exactly the same area as the heightmap.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/501.jpg?raw=true&quot; alt=&quot;image501&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the fragment shader, I told the mesh to color each point according to the color of the nearest pixel in the terrain map.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/502.png?raw=true&quot; alt=&quot;image502&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Up close, the detail is revealed to be rather blurry…
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/601.png?raw=true&quot; alt=&quot;image601&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The second pass of the terrain map came from several closer screenshots of the area, all stitched together to create a much higher-resolution image of the same area.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/701.jpg?raw=true&quot; alt=&quot;image701&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This one textures much nicer.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/702.png?raw=true&quot; alt=&quot;image801&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Still blurry on closer inspection, but not as bad. Also, the color palette of this texture seems to better reflect the normal state of the terrain.
+&lt;img src=&quot;https://github.com/calpoly-csc471-fall-17/final-project-website-BMcGuffin/blob/master/docs/_assets/images/801.png?raw=true&quot; alt=&quot;image802&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">For my Graphics 471 final project, I used texture mapping to generate a 3d model of the city of San Luis Obispo, from a heightmap image and a satellite photo of SLO.</summary></entry></feed>
