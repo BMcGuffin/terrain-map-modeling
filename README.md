@@ -172,3 +172,31 @@ Other versions of Visual Studio are listed on the CMake page
   the project explorer and then click on "Properties" and then click on
   "Debugging."
 
+Windows Visual Studio Code
+--------------------------
+
+- On this platform we have elected to use `mingw32-make`.
+
+- To set up `mingw32-make` to work correctly:
+
+- Follow the setup instructions for MinGW at this website: `https://code.visualstudio.com/docs/cpp/config-mingw`
+
+- The instructions here will further direct you to `https://www.msys2.org/`
+
+- Delete any build files which currently exist to make sure you're starting from a clean slate.
+
+- From your `build` directory, run: 
+
+	> cmake -G "MinGW Makefiles" ..
+
+- Now run: 
+
+	> mingw32-make
+	
+- The project should build the target scene.
+
+- From here, call: 
+
+	> ./scene
+	
+- This will launch the project.
